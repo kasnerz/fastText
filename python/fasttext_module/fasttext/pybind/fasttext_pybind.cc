@@ -170,6 +170,7 @@ PYBIND11_MODULE(fasttext_pybind, m) {
 
   py::class_<fasttext::Vector>(m, "Vector", py::buffer_protocol())
       .def(py::init<ssize_t>())
+      .def("setElement", &fasttext::Vector::setElement)
       .def_buffer([](fasttext::Vector& m) -> py::buffer_info {
         return py::buffer_info(
             m.data(),
@@ -493,6 +494,14 @@ PYBIND11_MODULE(fasttext_pybind, m) {
              int32_t k,
              const char* onUnicodeError) {
             return castToPythonString(m.getNN(word, k), onUnicodeError);
+          })
+      .def(
+          "getNN",
+          [](fasttext::FastText& m,
+             fasttext::Vector& query,
+             int32_t k,
+             const char* onUnicodeError) {
+            return castToPythonString(m.getNN(query, k), onUnicodeError);
           })
       .def(
           "getAnalogies",

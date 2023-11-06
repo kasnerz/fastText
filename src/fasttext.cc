@@ -571,6 +571,16 @@ std::vector<std::pair<real, std::string>> FastText::getNN(
 }
 
 std::vector<std::pair<real, std::string>> FastText::getNN(
+     const Vector &query,
+     int32_t k) {
+   // create empty banset
+   std::set<std::string> banSet;
+   lazyComputeWordVectors();
+   assert(wordVectors_);
+   return getNN(*wordVectors_, query, k, banSet);
+}
+
+std::vector<std::pair<real, std::string>> FastText::getNN(
     const DenseMatrix& wordVectors,
     const Vector& query,
     int32_t k,

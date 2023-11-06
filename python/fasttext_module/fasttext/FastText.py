@@ -140,6 +140,15 @@ class _FastText:
     def get_nearest_neighbors(self, word, k=10, on_unicode_error='strict'):
         return self.f.getNN(word, k, on_unicode_error)
 
+    def get_nearest_neighbors_embedding(self, embedding, k=10, on_unicode_error="strict"):
+        dim = embedding.shape[0]
+        b = fasttext.Vector(dim)
+
+        for i in range(dim):
+            b.setElement(i, embedding[i])
+
+        return self.f.getNN(b, k, on_unicode_error)
+
     def get_analogies(self, wordA, wordB, wordC, k=10,
                       on_unicode_error='strict'):
         return self.f.getAnalogies(wordA, wordB, wordC, k, on_unicode_error)

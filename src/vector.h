@@ -45,6 +45,9 @@ class Vector {
   inline int64_t size() const {
     return data_.size();
   }
+  inline void setElement(int64_t i, real value) {
+      data_[i] = value;
+  }
   void zero();
   void mul(real);
   real norm() const;
